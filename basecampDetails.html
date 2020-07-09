@@ -1,0 +1,46 @@
+
+<script>
+// Download all images on an approved Basecamp thread
+// Organize images by sizes in filename
+// Move images to respective folders = manual process?? OR
+// Output list of image file names for easier manual sorting
+// Problem: pass form data to javascript file using localStorage
+
+
+var bcData = {
+    "":""
+}
+localStorage.setItem('formInfo', JSON.stringify(data));
+
+var myData = localStorage['formInfo'];
+localStorage.removeItem('formInfo'); // clear the localStorage
+var bcData = myData[0];
+alert(`cprData: ${cprData} plus bcData: ${bcData}`);
+
+
+
+function openRequestedPage(bcThread) {
+    windowObjectReference = window.open(bcThread, windowObjectReference);
+}
+
+function closeRequestedPage(bcThread) {
+    windowObjectReference.close();
+}
+
+function downloadBCImagesFromGivenThread(url){
+    openRequestedPage(url);
+    imageList = document.querySelectorAll(".thumbnail img");
+    allImages = [];
+    
+    for(let i=0;i<imageList.length;i++){
+        allImages.push(imageList[i].getAttribute("data-download-path"));
+        console.log(imageList[i].getAttribute("data-filename"));
+    }
+    
+    allImages.forEach((imagePath) => {
+        openRequestedPage(imagePath,'_blank');
+    });
+
+    closeRequestedPage(url);
+}
+</script>

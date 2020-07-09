@@ -33,37 +33,52 @@
         1. Update database records directly OR
         2. Output complete HTML output for all templates and dev manually pastes into templates
 -->
-
+<!-- Test thread: https://basecamp.com/1853970/projects/17457751/todos/420121047 -->
 <body>
-    <form action="" method="GET">
+    <form name="inputPromoDetailsForm" action="" method="GET">
         <fieldset>
             <legend>Input Promo Details</legend>
             <label>Category/Brand ID
-            <input type="number" id="promoID" name="promo-id">
-        </label>
+                <input type="number" id="promoID" name="promo-id">
+            </label>
             <label for="thread">BaseCamp thread
-            <input type="url" name="thread">
-        </label>
+                <input type="url" name="thread">
+                <!-- Input this URL into basecampDetails.js method on Submit -->
+            </label>
             <label for="cpr">Import CPR
-            <input type="file" id="cpr" name="cpr" accept=".xlsx">
-        </label>
-            <input type="submit" name="submit"/>
+                <input type="file" id="cpr" name="cpr" accept=".xlsx">
+            </label>
+            <input id="submit-btn" type="submit" name="submit"/>
         </fieldset>
     </form>
 
     <section>LPA Template HTML</section>
     
     <script>
-    let windowFeatures = "menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes";
-    function openRequestedPopup(imagePath, windowFeatures) {
-        windowObjectReference = window.open(imagePath, windowFeatures);
-    }
-    allImages = document.querySelectorAll(".thumbnail img");
-    allImages.forEach((image) => {
-        let imageName = image.getAttribute("data-filename");
-        console.log(imageName);
+        
+        // Problem: Save form data to localStorage on form submission
+        function storeFormInfo(){
+            alert("storeFormInfo fired");
+            var promoID;
+            var cprInfo = {}
+            var bcData = {}
+            promoID = formInfo[0];
+            cprInfo = formInfo[1];
+            bcData = formInfo[2];
+            localStorage.setItem('formInfo', JSON.stringify(data));
         }
-    );
+
+        function store(){
+            var promoIDInput = docment.getElementById("promoID");
+            localStorage.setItem("promoID",promoIDInput.value);
+        }
+
+        document.getElementById("submit-btn").addEventListener("submit", function(){
+            alert("submit button handler triggered");
+            storeFormInfo();
+            store();
+        });
+
     </script>
 </body>
 </html>
